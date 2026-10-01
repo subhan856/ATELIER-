@@ -82,7 +82,7 @@ with tab1:
     left, center, right = st.columns([1.1,1.8,1.1])
     with center:
         st.markdown('<div class="glass">', unsafe_allow_html=True)
-        uploaded = st.file_uploader("Drop DXF / PNG / JPG / PDF (Kisi bhi format me)", type=['dxf','png','jpg','jpeg','pdf'])
+        uploaded = st.file_uploader("Drop DXF / PNG / JPG / PDF ", type=['dxf','png','jpg','jpeg','pdf'])
         st.markdown('</div>', unsafe_allow_html=True)
         if uploaded:
             ext = uploaded.name.rsplit('.',1)[-1].lower()
@@ -107,12 +107,12 @@ with tab1:
             st.session_state['w']=w; st.session_state['d']=d
 
     with left:
-        st.markdown("### 🔍 Features (Pichla wala bilkul hai)")
+        st.markdown("### 🔍 Features ")
         if 'w' in st.session_state:
             st.markdown(f"<div class='glass'>W: {st.session_state['w']:.1f}<br>D: {st.session_state['d']:.1f}</div>", unsafe_allow_html=True)
     with right:
         if 'w' in st.session_state:
-            st.markdown("### 💾 Export (Pehle jaisa + Fixed)")
+            st.markdown("### 💾 Export ")
             w=st.session_state['w']; d=st.session_state['d']; h=st.slider("Height",1,100,20,key="h1")
             fn=st.text_input("File Name", value="Part1", key="fn1")
             typ=st.selectbox("Save as type", ["SOLIDWORKS Part (*.prt;*.sldprt)","STEP File (*.step)","STL File (*.stl) - 100% Works","OBJ File (*.obj)"], key="t1")
@@ -150,9 +150,8 @@ with tab2:
         data = make_valid_stl(ai_w,ai_d,ai_h, shape) if "STL" in typ2 else make_valid_step(ai_w,ai_d,ai_h)
         fname = f"{fn2}.stl" if "STL" in typ2 else f"{fn2}.step"
         st.download_button(f"🤖 Download AI 3D {fname}", data=data, file_name=fname, type="primary", use_container_width=True)
-        st.caption("Ye text-to-3D ka v1 hai - prompt se size/shape auto banta hai. Agla step me holes/bracket detail bhi add kar dunga.")
-    else:
-        st.info("Upar prompt likho jaise '120x80 bracket with 2 holes' aur AI 3D bana dega")
+       
+  
 
 # requirements.txt wahi rahega:
 # streamlit
